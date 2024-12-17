@@ -4,28 +4,32 @@
 #include <iostream>
 
 
-void cookies::exit(const cookies::MenuItem* current)
+const cookies::MenuItem* cookies::exit(const cookies::MenuItem* current)
 {
     std:: exit(0);
 }
 
-void cookies::read_pushkin(const cookies::MenuItem* current)
+const cookies::MenuItem* cookies::read_pushkin(const cookies::MenuItem* current)
 {
-    
+    std::cout<< current->title<<std::endl;
+    return current->parent;
 }
-void cookies::read_lermontov(const cookies::MenuItem* current)
+const cookies::MenuItem* cookies::read_lermontov(const cookies::MenuItem* current)
 {
-    
+    std::cout<< current->title<<std::endl;
+    return current->parent;
 }
-void cookies::read_krylov(const cookies::MenuItem* current)
+const cookies::MenuItem* cookies::read_krylov(const cookies::MenuItem* current)
 {
-    
+    std::cout<< current->title<<std::endl;
+    return current->parent;
 }
-void cookies::read_go_back(const cookies::MenuItem* current)
+const cookies::MenuItem* cookies::read_go_back(const cookies::MenuItem* current)
 {
-    
+    std::cout<< current->title<<std::endl;
+    return current->parent->parent;
 }
-void cookies::show_menu(const cookies::MenuItem* current)
+const cookies::MenuItem* cookies::show_menu(const cookies::MenuItem* current)
 {
     std::cout << "Читалка приветствует тебя, мой юный ученик!" << std::endl;
     for (int i = 1; i < current -> children_count; ++i)
@@ -35,7 +39,10 @@ void cookies::show_menu(const cookies::MenuItem* current)
     std::cout << current -> children[0] -> title << std::endl;
     std::cout << "Читалка > ";
     
+    int user_input;
+    std::cin >> user_input;
+    std::cout << std:: endl;
     
-    std::cout << std::endl;
+    return current->children[user_input];
 }
     		

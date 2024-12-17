@@ -34,14 +34,20 @@ int main()
     
     cookies::MenuItem main_menu = {nullptr,cookies::show_menu, main_children, main_size};
     
-    int user_input;
+    read_go_back.parent = &read;
+    read_pushkin.parent = &read;
+    read_lermontov.parent = &read;
+    read_krylov.parent = &read;
     
-    main_menu.func(&main_menu);  ///??????
+    read.parent = &main_menu;
+    exit.parent = &main_menu;
+    
+    
+    
+    
+    const cookies::MenuItem* current = &main_menu;
     do {
-        std::cin >> user_input;
-        std::cout << std:: endl;
-        
-        main_menu.children[user_input] -> func(main_menu.children[user_input]); ///?????
+        current = current->func(current);
     } while (true);
     
     return 0;
