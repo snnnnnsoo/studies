@@ -7,7 +7,7 @@
 const cookies::MenuItem cookies::PUSHKIN_DUBROVSKIY = {"1 - Дубровский", cookies::dubrovskiy, &cookies::READ_PUSHKIN};
 const cookies::MenuItem cookies::PUSHKIN_ONEGIN = {"2 - Онегин", cookies::onegin, &cookies::READ_PUSHKIN};
 const cookies::MenuItem cookies::PUSHKIN_ZIMNIE_VECERA = {"3 - Зимние вечера", cookies::zimnie_vecera, &cookies::READ_PUSHKIN};
-const cookies::MenuItem cookies::PUSHKIN_GO_BACK = {"0 - Выйти в главное меню", cookies::pushkin_go_back, &cookies::READ_PUSHKIN};
+const cookies::MenuItem cookies::PUSHKIN_GO_BACK = {"0 - Выйти в предыдущее меню", cookies::pushkin_go_back, &cookies::READ_PUSHKIN};
 
 namespace{
     const cookies::MenuItem* const pushkin_children [] = {
