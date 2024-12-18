@@ -7,7 +7,7 @@
 const cookies::MenuItem cookies::PUSHKIN_DUBROVSKIY = {"1 - Дубровский", cookies::dubrovskiy, &cookies::READ_PUSHKIN};
 const cookies::MenuItem cookies::PUSHKIN_ONEGIN = {"2 - Онегин", cookies::onegin, &cookies::READ_PUSHKIN};
 const cookies::MenuItem cookies::PUSHKIN_ZIMNIE_VECERA = {"3 - Зимние вечера", cookies::zimnie_vecera, &cookies::READ_PUSHKIN};
-const cookies::MenuItem cookies::PUSHKIN_GO_BACK = {"0 - Выйти в предыдущее меню", cookies::pushkin_go_back, &cookies::READ_PUSHKIN};
+const cookies::MenuItem cookies::PUSHKIN_GO_BACK = {"0 - Выйти в предыдущее меню", cookies::go_back, &cookies::READ_PUSHKIN};
 
 namespace{
     const cookies::MenuItem* const pushkin_children [] = {
@@ -23,7 +23,7 @@ const int pushkin_size = sizeof(pushkin_children)/sizeof(pushkin_children[0]);
 const cookies::MenuItem cookies::READ_PUSHKIN = {"1 - Читать Пушкина", cookies:: show_menu, &cookies:: READ, pushkin_children, pushkin_size};
 const cookies::MenuItem cookies::READ_LERMONTOV = {"2 - Читать Лермонтова", cookies:: read_lermontov, &cookies:: READ};
 const cookies::MenuItem cookies::READ_KRYLOV = {"3 - Читать Крылова", cookies:: read_krylov, &cookies:: READ};
-const cookies::MenuItem cookies::READ_GO_BACK = {"0 - Выйти в главное меню", cookies:: read_go_back, &cookies:: READ};
+const cookies::MenuItem cookies::READ_GO_BACK = {"0 - Выйти в главное меню", cookies::go_back, &cookies:: READ};
 
 namespace{
     const cookies::MenuItem* const read_children [] = {
