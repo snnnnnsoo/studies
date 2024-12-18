@@ -4,31 +4,7 @@
 #include <iostream>
 
 
-const cookies::MenuItem* cookies::exit(const cookies::MenuItem* current)
-{
-    std:: exit(0);
-}
 
-const cookies::MenuItem* cookies::read_pushkin(const cookies::MenuItem* current)
-{
-    std::cout<< current->title<<std::endl;
-    return current->parent;
-}
-const cookies::MenuItem* cookies::read_lermontov(const cookies::MenuItem* current)
-{
-    std::cout<< current->title<<std::endl;
-    return current->parent;
-}
-const cookies::MenuItem* cookies::read_krylov(const cookies::MenuItem* current)
-{
-    std::cout<< current->title<<std::endl;
-    return current->parent;
-}
-const cookies::MenuItem* cookies::read_go_back(const cookies::MenuItem* current)
-{
-    std::cout<< current->title<<std::endl;
-    return current->parent->parent;
-}
 const cookies::MenuItem* cookies::show_menu(const cookies::MenuItem* current)
 {
     std::cout << "Читалка приветствует тебя, мой юный ученик!" << std::endl;
@@ -45,4 +21,54 @@ const cookies::MenuItem* cookies::show_menu(const cookies::MenuItem* current)
     
     return current->children[user_input];
 }
+
+const cookies::MenuItem* cookies::exit(const cookies::MenuItem* current)
+{
+    std:: exit(0);
+}
+
+
+
+const cookies::MenuItem* cookies::read_lermontov(const cookies::MenuItem* current)
+{
+    std::cout<< current->title<<std::endl;
+    return current->parent;
+}
+const cookies::MenuItem* cookies::read_krylov(const cookies::MenuItem* current)
+{
+    std::cout<< current->title<<std::endl;
+    return current->parent;
+}
+const cookies::MenuItem* cookies::read_go_back(const cookies::MenuItem* current)
+{
+    std::cout<< current->title<<std::endl;
+    return current->parent->parent;
+}
+
+
+
+const cookies::MenuItem* cookies::dubrovskiy(const cookies::MenuItem* current)
+{
+    std::cout<<current->title<<std::endl;
+    return current->parent;
+}
+
+const cookies::MenuItem* cookies::onegin(const cookies::MenuItem* current)
+{
+    std::cout<<current->title<<std::endl;
+    return current->parent;
+}
+
+const cookies::MenuItem* cookies::zimnie_vecera(const cookies::MenuItem* current)
+{
+    std::cout<<current->title<<std::endl;
+    return current->parent;
+}
+
+const cookies::MenuItem* cookies::pushkin_go_back(const cookies::MenuItem* current)
+{
+    std::cout<< current->title<<std::endl;
+    return current->parent->parent;
+}
+
     		
