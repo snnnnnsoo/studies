@@ -7,3 +7,4 @@ add_subdirectory(libs/googletest)
 
 add_subdirectory(menu)
 add_subdirectory(bubble_sort)
+
