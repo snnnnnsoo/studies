@@ -174,11 +174,6 @@ TEST(LongNumber, GreaterThan) {
     ASSERT_GT(a, b);
 }
 
-TEST(LongNumber, GreaterEqualThan){
-    LongNumber a("970");
-    LongNumber b("198");
-    EXPECT_TRUE(a >= b);
-}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

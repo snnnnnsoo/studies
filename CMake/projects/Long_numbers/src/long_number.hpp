@@ -12,8 +12,8 @@ namespace biv {
 		public:
 			LongNumber();
 			LongNumber(const char* const str);
-			LongNumber(const LongNumber& x);
-			LongNumber(LongNumber&& x);
+			LongNumber(const LongNumber &x);
+			LongNumber(LongNumber &&x);
 			
 			~LongNumber();
 			

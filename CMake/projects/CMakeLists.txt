@@ -6,5 +6,7 @@ enable_testing()
 add_subdirectory(libs/googletest)
 
 add_subdirectory(menu)
-add_subdirectory(bubble_sort)
-
+#add_subdirectory(bubble_sort)
+add_subdirectory(Long_numbers)
+add_subdirectory(vector)
+add_subdirectory(double_linked_list)

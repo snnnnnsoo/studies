@@ -1,5 +1,7 @@
 #include "long_number.hpp"
 
+#include <iostream>
+
 using biv::LongNumber;
         
 LongNumber::LongNumber() {
@@ -15,6 +17,8 @@ LongNumber::LongNumber(const char* const str): length(strlen(str)) {
     {
         sign = -1;
         length--;
+    }else{
+        sign = 1;
     }
 
     numbers = new int[length];
@@ -23,19 +27,18 @@ LongNumber::LongNumber(const char* const str): length(strlen(str)) {
         numbers[i] = str[i + (sign == -1)] - '0';
     }
     for (int i = 0; i < length / 2; ++i) {
-            swap(numbers[i], numbers[length - i - 1]);
+            std::swap(numbers[i], numbers[length - i - 1]);
         }
-    return *this;
 }
 
-LongNumber::LongNumber(const LongNumber& x): length(x.length), sign(x.sign) {
+LongNumber::LongNumber(const LongNumber &x): length(x.length), sign(x.sign) {
     numbers = new int[length];
     for (int i = 0; i < length; ++i){
         numbers[i] = x.numbers[i];
     }
 }
 
-LongNumber::LongNumber(LongNumber&& x): length(x.length), sign(x.sign), numbers(x.numbers) {
+LongNumber::LongNumber(LongNumber &&x): length(x.length), sign(x.sign), numbers(x.numbers) {
     x.numbers = nullptr;
 }
 
@@ -60,13 +63,15 @@ LongNumber& LongNumber::operator = (const char* const str) {
             numbers[i] = (str[i + (sign == -1)] - '0');
            }
     for (int i = 0; i < length / 2; ++i) {
-            swap(numbers[i], numbers[length - i - 1]);
+            std::swap(numbers[i], numbers[length - i - 1]);
         }
         return *this;
 }
 
-LongNumber& LongNumber::operator = (const LongNumber& x): sign(x.sign), length(x.length) {
+LongNumber& LongNumber::operator = (const LongNumber& x) {
     delete[] numbers;
+    sign = x.sign;
+    length = x.length;
     numbers = new int[length];
                 for (int i = 0; i < length; i++) {
                     numbers[i] = x.numbers[i];
@@ -75,7 +80,11 @@ LongNumber& LongNumber::operator = (const LongNumber& x): sign(x.sign), length(x
    
 }
 
-LongNumber& LongNumber::operator = (LongNumber&& x):sign(x.sign), length(x.length), numbers(x.numbers) {
+LongNumber& LongNumber::operator = (LongNumber&& x) {
+    delete[] numbers;
+    sign = x.sign;
+    length = x.length;
+    numbers = x.numbers;
     x.numbers = nullptr;
     return *this;
     
@@ -84,16 +93,17 @@ bool LongNumber::operator == (const LongNumber& x) const {
     
     if (sign != x.sign || length != x.length){
         return 0;
-
-    for (int i = 0; i < length; i++){
-        if (numbers[i] != x.numbers[i]){
-            return false;
+    }
+        for (int i = 0; i < length; i++){
+            if (numbers[i] != x.numbers[i]){
+                return false;
+            }
+            
         }
         
+        return true;
     }
-    
-     return true;
-}
+
         
 bool LongNumber::operator != (const LongNumber& x) const {
     return !(*this == x);
@@ -101,15 +111,14 @@ bool LongNumber::operator != (const LongNumber& x) const {
     
 bool LongNumber::operator > (const LongNumber& x) const {
     if (sign != x.sign) {
-            return sign > x.sign;
-        }
-    if (length != x.length) {
-            return (sign == 1) ? (length > x.length) : (length < x.length);
-        }
-    for (int i = 0; i < length; ++i) {
-        int c = length - i - 1;
-        if (numbers[c] != x.numbers[]) {
-            return (sign == 1) ? (numbers[c] > x.numbers[c]) : (numbers[c] < x.numbers[c]);
+        return sign > x.sign;
+    } else if (length != x.length) {
+        return (sign == 1) ? (length > x.length) : (length < x.length);
+    } else {
+        for (int i = length - 1; i >= 0; --i) {
+            if (numbers[i] != x.numbers[i]) {
+                return (sign == 1) ? (numbers[i] > x.numbers[i]) : (numbers[i] < x.numbers[i]);
+            }
         }
     }
 }
@@ -126,7 +135,7 @@ LongNumber LongNumber::operator + (const LongNumber& x) const {
     LongNumber result;
 
     if (sign == x.sign) {
-        result.length = max(length, x.length) + 1;
+        result.length = std::max(length, x.length) + 1;
         result.numbers = new int[result.length];
         int added = 0;
         for (int i = 0; i < result.length; ++i) {
@@ -141,7 +150,6 @@ LongNumber LongNumber::operator + (const LongNumber& x) const {
         
         while (result.length > 1 && result.numbers[result.length - 1] == 0) {
             result.length--;
-            numbers++;
         }
 
         return result;
@@ -157,7 +165,7 @@ LongNumber LongNumber::operator + (const LongNumber& x) const {
         }
         
         negative.sign = 1;
-
+        
         if (positive > negative) {
             reduced = positive;
             substructed = negative;
@@ -167,9 +175,9 @@ LongNumber LongNumber::operator + (const LongNumber& x) const {
             substructed = positive;
             result.sign = -1;
         }
-    }
-    result.length = reduced.length;
+        result.length = reduced.length;
         result.numbers = new int[result.length];
+        
         
         int taken = 0;
         for (int i = 0; i < result.length || taken; ++i) {
@@ -182,6 +190,7 @@ LongNumber LongNumber::operator + (const LongNumber& x) const {
             }
             result.numbers[i] = diff;
         }
+    }
 
        
         while (result.length > 1 && result.numbers[result.length - 1] == 0) {
@@ -193,7 +202,7 @@ LongNumber LongNumber::operator + (const LongNumber& x) const {
         return result;
     }
 
-}
+
 
 LongNumber LongNumber::operator - (const LongNumber& x) const {
     LongNumber redused = *this;
@@ -207,7 +216,7 @@ LongNumber LongNumber::operator - (const LongNumber& x) const {
 LongNumber LongNumber::operator * (const LongNumber& x) const {
     LongNumber result;
     result.length = length + x.length;
-    result.numbers = new int[result.length]{0};
+    result.numbers = new int[result.length];
 
     for (int i = 0; i < length; ++i) {
         int carry = 0;
@@ -219,8 +228,7 @@ LongNumber LongNumber::operator * (const LongNumber& x) const {
         }
     }
     while (result.length > 1 && result.numbers[result.length - 1] == 0) {
-        result.length--
-        numbers++;
+        result.length--;
     }
 
     result.sign = (sign == x.sign) ? 1 : -1;
@@ -247,10 +255,16 @@ LongNumber LongNumber::operator/(const LongNumber& x) const {
     LongNumber current("0");
     LongNumber ten("10");
     for (int i = dividend.length - 1; i >= 0; --i) {
-
-        current = (current * ten) + LongNumber(to_string(dividend.numbers[i]).c_str());
+//        std::cout << *this << "  " << x << std::endl;
+//        std::cout << std::to_string(dividend.numbers[i]) << "   " << std::to_string(dividend.numbers[i]).c_str() << "   " << LongNumber(std::to_string(dividend.numbers[i]).c_str()) << std::endl;
+        
+        current = (current * ten) + LongNumber(std::to_string(dividend.numbers[i]).c_str());
+        
+//        std::cout << " n = " << dividend.numbers[i] << " current = " << current << std::endl;
+    
+        
         int digit = 0;
-        while (current >= divisor) {
+        while (current > divisor || current == divisor) {
             current = (current - divisor);
             ++digit;
         }
@@ -291,33 +305,33 @@ LongNumber LongNumber::operator % (const LongNumber& x) const {
     }
 
 }
-int LongNumber::get_digits_number() const noexcept {
-    return length;
-}
+//int LongNumber::get_digits_number() const noexcept {
+//    return length;
+//}
 
 int LongNumber::get_rank_number(int rank) const {
     if (rank < 1 || rank > length) {
-        throw out_of_range("rank out of range");
+        throw std::out_of_range("rank out of range");
     }
     return numbers[length - rank];
 }
 
-bool LongNumber::is_negative() const noexcept {
-    return sign == -1;
-}
+//bool LongNumber::is_negative() const noexcept {
+//    return sign == -1;
+//}
 
 // ----------------------------------------------------------
 // PRIVATE
 // ----------------------------------------------------------
-int LongNumber::get_length(const char* const str) const noexcept {
-    return length;
-}
+//int LongNumber::get_length(const char* const str) const noexcept {
+//    return length;
+//}
 
 // ----------------------------------------------------------
 // FRIENDLY
 // ----------------------------------------------------------
 namespace biv {
-    ostream& operator << (ostream &os, const LongNumber& x) {
+    std::ostream& operator << (std::ostream &os, const LongNumber& x) {
         if (x.sign == -1) {
             os << '-';
         }
