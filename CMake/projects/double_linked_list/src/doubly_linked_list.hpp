@@ -22,7 +22,7 @@ namespace biv {
 			Node* end = nullptr;
 
 		public:
-			DoublyLinkedList() {};
+			DoublyLinkedList()  {};
 			DoublyLinkedList(const DoublyLinkedList&) = delete;
 			DoublyLinkedList& operator = (const DoublyLinkedList&) = delete;
 			~DoublyLinkedList();
